@@ -1,0 +1,6 @@
+<chart title="EFFORT ERROR" min_range="-1" max_range="+1" range_policy="expanding">
+<!--    Uncomment below if you want to also show commanded and feedback values -->
+<!--	<trace label="Effort" units="Nm|N" color="black" style="solid" value="fbk.effort" />-->
+<!--    <trace label="Effort Command" units="Nm|N" color="gray" style="dashed" value="fbk.effortCmd" />-->
+    <trace label="Effort Error" units="Nm|N" color="red" style="solid" value="fbk.effort - fbk.effortCmd" />
+</chart>

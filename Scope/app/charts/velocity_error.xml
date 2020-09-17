@@ -1,0 +1,6 @@
+<chart title="VELOCITY ERROR" min_range="-1" max_range="+1" range_policy="expanding">
+<!--    Uncomment below if you want to also show commanded and feedback values -->
+<!--	<trace label="Velocity" units="rad/s" color="black" style="solid" value="fbk.velocity" />-->
+<!--    <trace label="Velocity Command" units="rad/s" color="gray" style="dashed" value="fbk.velocityCmd" />-->
+    <trace label="Velocity Error" units="rad/s" color="red" style="solid" value="fbk.velocity - fbk.velocityCmd" />
+</chart>

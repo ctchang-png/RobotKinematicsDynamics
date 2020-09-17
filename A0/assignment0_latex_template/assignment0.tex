@@ -1,0 +1,295 @@
+\newcommand{\duedate}{3 September 2020}
+\documentclass{16384_doc}
+\newcommand{\assignmentname}{Assignment 0}
+
+%Feedback url
+\newcommand{\feedbackURL}{https://canvas.cmu.edu/courses/18336/quizzes/39692}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section{Overview}
+Welcome to Robot Kinematics and Dynamics!  This assignment serves to
+ensure you can get started with the tools we will be using this semester, as
+well as a brief overview of some of the prerequisite information we'll be
+assuming you already know.  The topics and processes covered in this assignment
+will be heavily used throughout this class.  Please meet with course staff if
+you have trouble with any part of the assignment, so we can make sure you
+are ready for assignment 1.
+
+\section{Background}
+
+In this section, we will give a brief review of the main concepts
+covered in lecture as they pertain to the labs. 
+
+\subsection{Matrices}
+
+In this course, we will make extensive use of matrices and matrix multiplication.
+While we will not need the anything but the basics of linear algebra, you must
+absolutely be comfortable with the following:
+
+\begin{itemize}
+    \item matrix multiplication
+    \item transposition
+    \item inversion
+    \item rank
+    \item vector norms
+    \item determinants
+    \item cross products
+    \item dot products
+\end{itemize}
+
+\subsection{Calculus}
+
+We expect you to know the following calculus concepts:
+
+\begin{itemize}
+    \item Derivatives (including trigonometric functions)
+    \item Partial Derivatives
+\end{itemize}
+
+\subsection{Course Logistics (Specific to CMU)}
+
+In this class you would be using the following websites regularly:
+
+\begin{itemize}
+	\item \href{https://sites.google.com/site/robotkinematicscmu/}{Course Website}: This site will act as the central hub for the course. The course calendar, due dates, syllabus, etc. can be found on this site.
+    \item \href{https://piazza.com/cmu/fall2020/16384a}{Piazza}: This is the best way to ask course staff questions, and see course announcements.
+    \item \href{https://canvas.cmu.edu}{Canvas}: We'll be releasing all the assignments on Canvas, as well as keeping track of your grades.
+    \item \href{http://gradescope.com}{Gradescope}: Create an account using your CMU email. You should have already been added to the course. If you haven't, please contact the course staff via a Piazza post.
+
+\end{itemize}
+
+\writtenSection
+
+\begin{questions}
+    \titledquestion{Piazza}[5]
+        You should have received an email inviting you to the course Piazza
+        instance.  We'll make course announcements via Piazza. To ensure that
+        you have been properly added, please go to the Assignment 0 release post.
+        On this post there will be a code, submit that code as the answer to this question.
+        
+        \begin{tcolorbox}[height=3cm]
+        % TODO: ENTER YOUR ANSWER HERE
+        
+        \end{tcolorbox}
+
+ 
+
+    \newpage
+
+    \titledquestion{Matrices and Matrix Operations}
+        \begin{parts}
+            \part[6] Which of the following are valid expressions?  Give your
+            answer as a list of numbers (for example: \texttt{1,2,4}).
+                \begin{enumerate}
+                    \item \smcolvec{1&1&1\\1&1&1} $\times$ \smcolvec{1&1&1\\1&1&1}
+                    \item \smcolvec{1&1\\1&1} $\times$ \smcolvec{1\\1}
+                    \item \smcolvec{1&1&1&1\\1&1&1&1\\1&1&1&1} $\times$ 
+                    \smcolvec{1&1&1\\1&1&1\\1&1&1\\1&1&1}
+                    \item \smcolvec{1\\1} $\times$ \smcolvec{1&1\\1&1}
+                    \item \smcolvec{1&1&1\\1&1&1} $\times$ \smcolvec{1\\1}
+                    \item \smcolvec{1&1&1\\1&1&1} $\times$ \trans{\smcolvec{1&1&1\\
+                    1&1&1}}
+                \end{enumerate}
+                
+                \begin{tcolorbox}[height=3cm]
+                    % TODO: ENTER YOUR ANSWER HERE
+               
+                \end{tcolorbox}
+
+            \part[15] Evaluate the following:
+                \begin{enumerate}
+                    \item \smcolvec{a&b&c\\d&e&f} $\times$ \smcolvec{3\\1\\7}
+                     \begin{tcolorbox}[height=3cm]
+                     % TODO: ENTER YOUR ANSWER HERE
+                    
+                     \end{tcolorbox}
+                    \item \smcolvec{9&3\\0&1} $\times$ \smcolvec{2&1\\4&3}
+                    
+                    \begin{tcolorbox}[height=3cm]
+                     % TODO: ENTER YOUR ANSWER HERE
+                     
+                     \end{tcolorbox}
+                    \item \smcolvec{2&1\\4&3} $\times$ \smcolvec{9&3\\0&1}
+                    
+                    \begin{tcolorbox}[height=3cm]
+                   
+                     % TODO: ENTER YOUR ANSWER HERE
+                    \end{tcolorbox}
+                    
+                    \newpage
+                    
+                    \item Given the rotation matrix $ R = \smcolvec{\cos(x)&-\sin(x)
+                    \\\sin(x)&\cos(x)}$
+                    	\begin{enumerate}
+                    		\item Determine $R^{-1}$
+                    		
+                    		\begin{tcolorbox}[height=3cm]
+                             % TODO: ENTER YOUR ANSWER HERE
+                            
+                            \end{tcolorbox}
+                    
+                    		\item Determine $R^{T}$
+                    		
+                    		\begin{tcolorbox}[height=3cm]
+                    		
+                             % TODO: ENTER YOUR ANSWER HERE
+                            \end{tcolorbox}
+                    		
+                    		\item Do you see a relationship between $R^{-1}$ and 
+                    		$R^{T}$
+                    		
+                    		\begin{tcolorbox}[height=5cm]
+                    	
+                             % TODO: ENTER YOUR ANSWER HERE
+                            \end{tcolorbox}
+                    	\end{enumerate}
+                    \item Given the matrices $A = \smcolvec{1&3\\4&15}$ and $B = 
+                    \smcolvec{1&2\\4&8}$
+                    \begin{enumerate}
+						\item Determine $\det(A)$
+						
+						\begin{tcolorbox}[height=3cm]
+					
+                         % TODO: ENTER YOUR ANSWER HERE
+                        \end{tcolorbox}
+						\item Determine $\rank(A)$. Is $A$ full rank?
+						\begin{tcolorbox}[height=3cm]
+				
+                         % TODO: ENTER YOUR ANSWER HERE
+                        \end{tcolorbox}
+						\item Determine $\det(B)$
+						\begin{tcolorbox}[height=3cm]
+					
+                         % TODO: ENTER YOUR ANSWER HERE
+                        \end{tcolorbox}
+						\item Determine $\rank(B)$. Is $B$ full rank?
+						\begin{tcolorbox}[height=3cm]
+					
+                         % TODO: ENTER YOUR ANSWER HERE
+                        \end{tcolorbox}
+						\item Do you notice a relationship between the rank and the 
+						determinant of these matrices?    
+						\begin{tcolorbox}[height=5cm]
+					
+                         % TODO: ENTER YOUR ANSWER HERE
+                        \end{tcolorbox}
+					\end{enumerate}
+					\item Given the vectors $\vec{x} = [1, 2, 3]$ and $\vec{y} = [4, 
+					5, 6]$
+					\begin{enumerate}
+						\item Determine $\vec{x}\cdot\vec{y}$
+						
+						\begin{tcolorbox}[height=3cm]
+					
+                         % TODO: ENTER YOUR ANSWER HERE
+                         
+                        \end{tcolorbox}
+						\item Determine $\vec{x}\times\vec{y}$
+						
+						\begin{tcolorbox}[height=3cm]
+						
+                         % TODO: ENTER YOUR ANSWER HERE
+                     
+                        \end{tcolorbox}
+						\item Determine $\norm{\vec{x}}$ and $\norm{\vec{y}}$
+						
+						\begin{tcolorbox}[height=3cm]
+                         % TODO: ENTER YOUR ANSWER HERE
+                       
+                        \end{tcolorbox}
+					\end{enumerate}
+					\item Invert \smcolvec{1&1\\\nicefrac{2}{3}&1}.				\begin{tcolorbox}[height=5cm]
+                     % TODO: ENTER YOUR ANSWER HERE
+                    \end{tcolorbox}
+                \end{enumerate}
+        \end{parts}
+
+    \titledquestion{Calculus}
+        \begin{parts}
+            \part[4] Find the derivative of $x \cos(x)$.
+            \begin{tcolorbox}[height=5cm]
+             % TODO: ENTER YOUR ANSWER HERE
+            \end{tcolorbox}
+
+            \part[10] Find the partial derivatives with respect to $x$ and
+            $y$ of $ f(x, y) = x \sin(y) + y^2 \cos(x)$.
+            \begin{tcolorbox}[height=5cm]
+           
+             % TODO: ENTER YOUR ANSWER HERE
+            \end{tcolorbox}
+        \end{parts} 
+\end{questions}
+
+\feedback{\feedbackURL}
+
+\section{Code Questions}
+
+In this section, we will re-enforce the written questions with practical examples.
+These questions, written in Matlab, will be the beginning of your code for the
+hands-on lab. To begin, you must install Matlab. A free copy is
+available to all CMU students at:
+\begin{center}
+    \href{http://www.cmu.edu/computing/software/all/matlab/}{http://www.cmu.edu/computing/software/all/matlab/}
+\end{center}
+
+Once you've installed Matlab on a personal computer, 
+%download the assignment handout from the \href{\resourceURL}{course website}. Copy the code handout folder to some location of your choice. 
+open Matlab and navigate to Code Handout folder. In this folder there will be a few exercises. These exercises will review the basics of Matlab syntax.
+
+\begin{questions}
+    \titledquestion{Exercise 01}[20]
+        For this exercise, edit the \verb!ex_01.m! file. In the file is four
+        variables.
+        \begin{itemize}
+            \item Set \verb!A! to be the \verb!2x2! matrix \smcolvec{1&2\\3&4}.
+            \item Set \verb!B! to be the \verb!2x3! matrix \smcolvec{1&2&3\\4&5&6}.
+            \item Set \verb!C! to be \verb!A! times \verb!B!.
+            \item Set \verb!D! to be \trans{\texttt{B}} times \verb!A!.
+        \end{itemize}
+
+    \titledquestion{Exercise 02}[10]
+        For this exercise, edit the \verb!ex_02.m! file.  In it are two
+        variables.
+        \begin{itemize}
+            \item Set \verb!a! to be an array containing values from 0 to 100
+                (inclusive), incrementing by \verb!0.2!. Hint: look into the
+                \verb!:!\footnotemark~operator.
+                \footnotetext{\texttt{\href{http://www.mathworks.com/help/matlab/ref/colon.html}{http://www.mathworks.com/help/matlab/ref/colon.html}}}
+
+            \item Set \verb!b! to be the \verb!100x100! identity matrix. Hint:
+                look at the \verb!eye!\footnotemark~function.
+                \footnotetext{\texttt{\href{http://www.mathworks.com/help/matlab/ref/eye.html}{http://www.mathworks.com/help/matlab/ref/eye.html}}}
+
+        \end{itemize}
+
+    \titledquestion{Exercise 03}[20]
+        In this exercise, we'll review Matlab's function syntax.  The file
+        \verb!ex_03.m! contains a function that outputs a matrix \verb!R!.  Fill it out
+        so that the function multiplies its parameters \verb!A!, \verb!B! as
+        \verb!A! times \verb!B! times \verb!A! times \verb!B!.
+
+    \titledquestion{Submission}
+        To submit, run \verb!create_submission.m!.  It will first check that
+        your submitted files run without error, and perform a small sanity
+        check.  Note, this is not going to grade your submission!  The function
+        will create a file called \verb!handin.tar.gz!.  Upload it to Canvas to
+        complete the submission.
+
+\end{questions}
+
+\begin{submissionChecklist}
+		\item Create a PDF of your answers to the written questions with the name \verb!writeup.pdf! and submit it to Gradescope.
+   		\item Make sure you have \verb!writeup.pdf! in the same folder as the \verb!create_submission.m! script.
+       	\item Run \verb!create_submission.m! in Matlab.
+       	\item Upload \verb!handin.tar.gz! to Canvas.
+    	\item After completing the entire assignment, fill out the feedback
+    	form\footnotemark.
+    	%~and make sure to add the submission code as the answer to the feedback section. 
+    	\footnotetext{\texttt{\href{\feedbackURL}{\feedbackURL}}}
+	\end{submissionChecklist}
+
+\end{document}

@@ -1,0 +1,6 @@
+<chart title="POSITION ERROR" min_range="-1" max_range="+1" range_policy="expanding">
+<!--    Uncomment below if you want to also show commanded and feedback values -->
+<!--	<trace label="Position" units="rad" color="black" style="solid" value="fbk.position" />-->
+<!--    <trace label="Position Command" units="rad" color="gray" style="dashed" value="fbk.positionCmd" />-->
+    <trace label="Position Error" units="rad" color="red" style="solid" value="fbk.position - fbk.positionCmd" />
+</chart>

@@ -1,0 +1,5 @@
+<chart title="LATENCY" min_range="0" max_range="0.5" range_policy="expanding">
+    <trace label="Round Trip Time (RTT)" units="ms" color="black" style="points" value="(fbk.pcRxTime - fbk.pcTxTime)*1E3" />
+    <trace label="Hardware Response Time" units="ms" color="blue" style="points" value="(fbk.hwTxTime - fbk.hwRxTime)*1E3" />
+    <trace label="Transmit Time dt" units="ms" color="green" style="points" value="isNaN(prevFbk.pcTxTime) ? 0 : (fbk.pcTxTime - prevFbk.pcTxTime)*1E3" />
+</chart>

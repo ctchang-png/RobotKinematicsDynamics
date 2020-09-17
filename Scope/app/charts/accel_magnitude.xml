@@ -1,0 +1,4 @@
+<chart title="ACCEL MAGNITUDE" min_range="0" max_range="10" range_policy="expanding">
+    <trace label="sqrt(x^2 + y^2 + z^2)" units="" color="black" style="solid"
+           value="Math.sqrt(Math.pow(fbk.accelX,2) + Math.pow(fbk.accelY,2) + Math.pow(fbk.accelZ,2))" />
+</chart>
