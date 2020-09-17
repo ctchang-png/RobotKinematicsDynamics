@@ -12,7 +12,7 @@ function [] = trace_object()
 %  
 
 %% Robot Connection
-robot = HebiLookup.newGroupFromNames('Robot A', {'joint1', 'joint2'});
+robot = HebiLookup.newGroupFromNames('Robot B ', {'joint1', 'joint2'});
 
 %% Tracing
 % Setup visualization
