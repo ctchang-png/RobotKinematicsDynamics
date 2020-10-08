@@ -42,7 +42,17 @@ initial_thetas = fbk.position'; % (The transpose turns the feedback into a colum
 %%    then from each of waypoints(:,i) to waypoints(:,i+1), using appropriate
 %%    resolution so that when commanded at 100Hz, these will last for
 %%    approximately 'segment_duration' seconds.
-
+rate = 100;%Hz
+goal_theta = waypoints(:,1);
+num_points = segment_duration*rate;
+trajectory = linear_joint_trajectory(initial_thetas, goal_theta, num_points);
+for ii = 2:size(waypoints,2)
+    goal_theta = waypoints(:,ii);
+    num_points = segment_duration*rate;
+    t = linear_joint_trajectory(trajectory(:,end), goal_theta, num_points);
+    trajectory = [trajectory, t]; %can preallocate based on sum(duration)*rate
+    %Do later
+end
 %% 2) Start logging (use below code)
 currentDir = fileparts(mfilename('fullpath'));
 logFile = robot_hardware.startLog('file', fullfile(currentDir, 'repeat_waypoints'));
@@ -57,7 +67,11 @@ logFile = robot_hardware.startLog('file', fullfile(currentDir, 'repeat_waypoints
 %%        % Wait a little bit to send at ~100Hz.
 %%        pause(0.01);
 %%    end
-
+for jj = 1:size(trajectory,2)
+    cmd.position = trajectory(:,jj)';
+    robot_hardware.set(cmd);
+    pause(0.01); %Make flexible?
+end
 % --------------- END STUDENT SECTION ------------------------------------
 
 %% Stop logging, and plot results

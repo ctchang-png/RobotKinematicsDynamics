@@ -46,7 +46,17 @@ initial_thetas = fbk.position'; % (The transpose turns the feedback into a colum
 %%    commanded at 100Hz, these will last for approximately 'segment_duration'
 %%    seconds.  The trajectories taken should result in straight-line workspace
 %%    trajectories.
-
+rate = 100;%Hz
+goal_pos = workspace_positions(:,1);
+num_points = segment_duration*rate;
+trajectory = linear_workspace_trajectory(robot, initial_thetas, goal_pos, num_points);
+for ii = 2:size(workspace_positions,2)
+    goal_pos = workspace_positions(:, ii);
+    num_points = segment_duration*rate;
+    t = linear_workspace_trajectory(robot, trajectory(:,end), goal_pos, num_points);
+    trajectory = [trajectory, t]; %can preallocate based on sum(duration)*rate
+    %Do later
+end
 %% 2) Start logging (use below code)
 currentDir = fileparts(mfilename('fullpath'));
 logFile = robot_hardware.startLog('file', fullfile(currentDir, 'workspace_waypoints'));
@@ -61,7 +71,11 @@ logFile = robot_hardware.startLog('file', fullfile(currentDir, 'workspace_waypoi
 %%        % Wait a little bit to send at ~100Hz.
 %%        pause(0.01);
 %%    end
-
+for jj = 1:size(trajectory,2)
+    cmd.position = trajectory(:,jj)';
+    robot_hardware.set(cmd);
+    pause(0.01); %Make flexible?
+end
 % --------------- END STUDENT SECTION ------------------------------------
 
 %% Stop logging, and plot results

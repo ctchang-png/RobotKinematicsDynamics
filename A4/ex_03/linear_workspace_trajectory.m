@@ -25,12 +25,22 @@ trajectory(:, 1) = start_theta;
 
 % HINT: it may be useful to first calculate the desired workspace trajectory to
 % reference in the loop below
-
+X = zeros(3, num_points);
+start_pos = robot.end_effector(start_theta);
+for ii = 1:size(goal_pos,1)
+    X(ii,:) = linspace(start_pos(ii), goal_pos(ii), num_points);
+end
 % Find the rests:
 for col = 2:num_points
 
     %% Fill in trajectory(:,col) here. HINT: use trajectory(:,col-1) to help!
-
+    start_q = trajectory(:,col-1);
+    if size(goal_pos,1) == 2
+        goal_x = X(1:2,col);
+    elseif size(goal_pos,1) == 3
+        goal_x = X(:,col);
+    end
+    trajectory(:,col) = robot.inverse_kinematics(start_q, goal_x);
 % --------------- END STUDENT SECTION ------------------------------------
 end
 

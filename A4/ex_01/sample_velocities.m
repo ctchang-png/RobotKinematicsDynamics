@@ -1,7 +1,7 @@
-function [] = sample_path()
+function [] = sample_velocities()
 
 % Default to sample-log
-hebilog = load('sample_ground_truth.mat');
+hebilog = load('C:\Users\ctcha\Desktop\classes\KinematicsDynamics\A4\ex_01\sample_ground_truth.mat');
 time = hebilog.time;
 theta = hebilog.theta;
 theta_dot = hebilog.theta_dot;

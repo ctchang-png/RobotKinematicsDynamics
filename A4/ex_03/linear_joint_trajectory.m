@@ -20,6 +20,9 @@ function [ trajectory ] = linear_joint_trajectory(start_theta, goal_theta, num_p
 % --------------- BEGIN STUDENT SECTION ----------------------------------
 
 trajectory = zeros(size(start_theta,1), num_points);
+for ii = 1:size(start_theta,1)
+    trajectory(ii,:) = linspace(start_theta(ii), goal_theta(ii), num_points);
+end
 
 % --------------- END STUDENT SECTION ------------------------------------
 
