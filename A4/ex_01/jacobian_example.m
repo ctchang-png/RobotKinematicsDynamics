@@ -1,4 +1,4 @@
-function Torques = RRRRRRRRRR_arm()
+function Torques = jacobian_example()
     link_lengths = 5*ones(10,1);
     link_masses = zeros(10,1);
     joint_masses = zeros(10,1);
