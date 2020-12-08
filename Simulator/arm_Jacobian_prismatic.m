@@ -1,4 +1,4 @@
-function [J,...
+function [J_joints, J_links] = arm_Jacobian_prismatic(link_vectors, joint_angles, joint_axes, link_extensions, prismatic, link_number)
 % Construct a Jacobian for a chain of links as a function of the link
 % vectors, the joint angles, joint axes, and the number of the link whose
 % endpoint is the location where the Jacobian is evaluated
@@ -46,7 +46,16 @@ function [J,...
     % easier for Matlab's code checking to tell you if you have a bug in which
     % you are forgetting to use a variable that you have defined (which
     % generally means that you're using the wrong variable somewhere)
-
+    link_vectors_extended = cell(size(link_vectors));
+    for ii = 1:numel(link_vectors)
+        link_vectors_extended{ii} = link_vectors{ii} * (norm(link_vectors{ii}) + link_extensions(ii));
+    end
+    [link_ends,...
+    ~,...
+    R_links,...
+    link_vectors_in_world,...
+    link_end_set,...
+    link_end_set_with_base] = threeD_robot_arm_endpoints(link_vectors_extended,joint_angles,joint_axes);
 
 
     % Use 'v_diff' to get the vector to the end of link 'link_number' from each
@@ -63,10 +72,17 @@ function [J,...
     % to offset the joint axes when calling 'vector_set_rotate'). Call the
     % output of this rotation 'joint_axis_vectors_R'.
 
-
     % Create a zero matrix to hold the Jacobian. It should have three rows,
     % and should have as many columns as there are joints
-
+    J_joints = arm_Jacobian(link_vectors_extended,joint_angles,joint_axes,link_number);
+    J_links = zeros(3, numel(link_vectors));
+    for ii = 1:link_number
+       if prismatic(ii) == 0
+           continue
+       end
+       v = link_vectors_in_world{ii};
+       J_links(:,ii) = v / norm(v);
+    end
     % Fill in the columns of the Jacobian. Each column is either:
     %
     %   A. The cross product of the corresponding joint axis with the vector
@@ -76,6 +92,6 @@ function [J,...
     %
     % (Note that you can implment this conditional by making the loop that
     % fills in the columns of J stop at column 'link_number')
-
+    
     
 end

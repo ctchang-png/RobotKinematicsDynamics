@@ -95,7 +95,7 @@ function [F,...
         F = F + f_torque;
         % Save the current values of 'link_vectors_midpoint', 'J_midpoint', 'm',
         % 'f', and 'f_torqe' to the {idx} entries of the corresponding '_out' cell arrays
-        
+    end
         
     
     

@@ -14,25 +14,25 @@ function [link_vectors,...
     %%%%%%%%%%
     % Specify link vectors as a 1x3 cell array of 3x1 vectors, named
     % 'link_vectors'
-    link_vectors = {[1;0;0], [1;0;0], [0;0;0.5]};
+    link_vectors = {[0;0;1], [1;0;0], [1;0;0], [1;0;0], [1;0;0]};
     %%%%%%%%%%
     % Specify joint angles as a 3x1 vector, named 'joint_angles'
-    joint_angles = [2*pi/5; -pi/4; pi/4];
+    joint_angles = [0;0;0;0;0];
     %%%%%%%%%%
     % Specify joint axes as a 3x1 cell array, named 'joint_axes'
-    joint_axes = {'z', 'y', 'x'};
+    joint_axes = {'z', 'y', 'x', 'z' 'x'};
     %%%%%%%%%%
     % Specify colors of links as a 1x3 cell array named 'link_colors'. Each
     % entry can be either a standard matlab color string (e.g., 'k' or 'r')
     % or a 1x3 vector of the RGB values for the color (range from 0 to 1)
-    link_colors = {'b', 'k', 'b'};
+    link_colors = {'b', 'k', 'b', 'k', 'b'};
     %%%%%%%%%%
     % Specify link extensions as a 3x1 vector, named 'link_extensions'
-    link_extensions = [0;0.2;-0.2];
+    link_extensions = [0;0;0;0;0];
     %%%%%%%%%%
     % Specify which links are prismatic as a 3x1 vector named 'prismatic',
     % with values of 0 for a rigid link or 1 for a link that can extend
-    prismatic = [0;1;1];
+    prismatic = [0;1;0;0;0];
 
     %%%%%%%%%
     % Generate a cell array named 'link_set' containing start-and-end

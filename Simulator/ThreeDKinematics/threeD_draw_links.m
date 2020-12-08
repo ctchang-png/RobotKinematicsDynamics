@@ -25,6 +25,7 @@ function l = threeD_draw_links(link_set,link_colors,ax)
     % command and not 'surf', because the 'surf' command resets the plot.
     % The color of the surface can be set using the 'FaceColor' attribute;
     % be sure to set the 'Parent' of the surface as 'ax'
+    link_set
     for idx = 1:numel(link_set)
         X = link_set{idx};
         l{idx} = surface(X{1}, X{2}, X{3}, 'Parent', ax, 'FaceColor', link_colors{idx});
