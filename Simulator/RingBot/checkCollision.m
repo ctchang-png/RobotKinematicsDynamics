@@ -51,6 +51,11 @@ function isCollision = checkCollision(wire, robot, joint_angles, link_extensions
         link_x = [link_points{1}(1, :)'; link_points{1}(2, :)'];
         link_y = [link_points{2}(1, :)'; link_points{2}(2, :)'];
         link_z = [link_points{3}(1, :)'; link_points{3}(2, :)'];
+        %remove NaNs
+        link_x = rmmissing(link_x);
+        link_y = rmmissing(link_y);
+        link_z = rmmissing(link_z);
+        
         tess = convhull(link_x, link_y, link_z);
         link_xyz = [link_x link_y link_z];
         in = inhull(wire', link_xyz, tess, tolerance);

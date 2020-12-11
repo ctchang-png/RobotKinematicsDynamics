@@ -115,7 +115,7 @@ function link_set = threeD_build_links_prismatic(link_vectors,link_extensions,pr
 
             % Create a "spacer" that is a column of NaN values with same
             % number of rows as the cylinder coordinate matrices
-            spacer = NaN(size(X, 1), 1);
+            spacer = nan(size(X, 1), 1);
 
             % Make combined X_link, Y_link, and Z_link matrices whose
             % columns are the base matrices, the spacer, and the piston

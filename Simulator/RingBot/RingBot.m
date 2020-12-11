@@ -16,6 +16,7 @@ classdef RingBot < handle
         link_colors;
         dof;
         figure; % Handle to the plot of the arm
+        initialized;
     end
     
     methods
@@ -33,6 +34,7 @@ classdef RingBot < handle
             obj.joint_axes = joint_axes;
             obj.link_colors = link_colors;
             obj.dof = numel(joint_axes);
+            obj.initialized = 0;
         end
         
         function drawArm(obj, joint_angles, link_extensions)
@@ -93,12 +95,14 @@ classdef RingBot < handle
            J_links = zeros(6, length(link_extensions));
            n = length(joint_angles);
            pose = obj.fwdKin_end(joint_angles, link_extensions);
-           eps = 1e-7;
+           eps = 1e-4;
            for ii = 1:length(joint_angles)
                joint_angles_new = joint_angles;
                joint_angles_new(ii) = joint_angles_new(ii) + eps;
                pose_new = obj.fwdKin_end(joint_angles_new, link_extensions);
-               grad = (pose_new - pose)/eps;
+               dp = (pose_new - pose);
+               dp(4:6) = wrapToPi(dp(4:6));
+               grad = dp/eps;
                J_joints(:,ii) = grad;
                link_extensions_new = link_extensions;
                link_extensions_new(ii) = link_extensions_new(ii) + eps;
@@ -108,30 +112,9 @@ classdef RingBot < handle
            end
         end
         
-        function [J_joints, J_links] = Jacobain_end_wip(obj, joint_angles, link_extensions)
-            n = length(joint_angles);
-            persistent initialized;
-            if ~initialized
-                Qr = sym('q', [1, n]);
-                Ql = sym('q', [n+1, 2*n]);
-                R_set = threeD_rotation_set(Q(1:length(joint_angles)),obj.joint_axes);
-                R_links = rotation_set_cumulative_product(R_set);
-                link_vectors_tmp = obj.link_vectors;
-                link_vectors_tmp{end} = link_vectors_tmp{end} * (1 + obj.ring_radius);
-                x = [0;0;0];
-                for ii = 1:n
-                    v = link_vectors_tmp{ii};
-                    if obj.prismatic{ii}
-                        v = v + Ql(ii)*(v/norm(v));
-                    end
-                    x = x + R_links{ii}*v;
-                end
-            end
-            
-        end
         
         function [joint_angles, link_extensions] = invKinNum(obj, X, R, initial_joint_angles, initial_link_extensions, max_iter)
-            alpha = 0.05;
+            alpha = 0.050;
             joint_angles = initial_joint_angles;
             link_extensions = initial_link_extensions;
             eul = rotm2eul(R, 'ZYZ');
@@ -150,6 +133,28 @@ classdef RingBot < handle
                 joint_angles = wrapToPi(joint_angles);
                 link_extensions = link_extensions - alpha*h_links;
             end
+            %{
+            Rset = threeD_rotation_set(joint_angles, obj.joint_axes);
+            Rlinks = rotation_set_cumulative_product(Rset);
+            Reff = Rlinks{end};
+            xeff = [X, X+Reff(:,1)];
+            zeff = [X, X+Reff(:,3)];
+            yeff = [X, X+Reff(:,2)];
+            
+            x = X + R(:,1);
+            y = X + R(:,2);
+            z = X + R(:,3);
+            figure(7)
+            hold on
+            %{
+            plot3(xeff(1,:), xeff(2,:), xeff(3,:), 'r-')
+            plot3(yeff(1,:), yeff(2,:), yeff(3,:), 'g-')
+            plot3(zeff(1,:), zeff(2,:), zeff(3,:), 'b-')
+            %}
+            plot3([X(1) x(1)], [X(2) x(2)], [X(3) x(3)], 'r--')
+            plot3([X(1) y(1)], [X(2) y(2)], [X(3) y(3)], 'g--')
+            plot3([X(1) z(1)], [X(2) z(2)], [X(3) z(3)], 'b--')
+            %}
         end
         
         %% REQUIRED BY STUDENT TO IMPLEMENT
@@ -171,9 +176,9 @@ classdef RingBot < handle
             % link_torques: n x m matrix of prismatic link torques. (Leave 0 for
             % links that are not prismatic)
             disp("Jacobians and Inverse Kinematics are computed numerically, your computer did not crash")
-            n=3;
+            n=1;
             T = 1:n:size(wire,2);
-            Tq = linspace(1,size(wire, 2), 200);
+            Tq = linspace(1,size(wire, 2), 250);
             P = wire(:,1:n:end);
             Xq = spline(T, P(1,:), Tq);
             Yq = spline(T, P(2,:), Tq);
@@ -195,10 +200,16 @@ classdef RingBot < handle
                 v = traj(:,ii+1) - traj(:,ii-1);
                 z = v/norm(v);
                 x = X - z*dot(X, z);
-                x = x/norm(x);
-                y = cross(z, x);
+                if dot(X/norm(X), z) > cosd(1)
+                    x = [1;0;0];
+                    x = x - z*dot(x, z);
+                    x = x/norm(x);
+                    y = cross(z, x);
+                else
+                    x = x/norm(x);
+                    y = cross(z, x);
+                end
                 R = [x y z];
-                
                 % Inverse Kinematics to find joint angles/extensions
                 max_iters=150;
                 [alpha, beta] = obj.invKinNum(X, R, joint_angles(:,ii-1), link_extensions(:,ii-1), max_iters);
@@ -237,6 +248,7 @@ classdef RingBot < handle
             joint_angles(:,end) = joint_angles(:,end-1);
             link_extensions(:,1) = link_extensions(:,2);
             link_extensions(:,end) = link_extensions(:,end-1);    
+                        
         end
     end
 end

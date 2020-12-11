@@ -8,20 +8,19 @@ function visualizeTrajectory(robot, wire, initial_thetas, initial_link_extension
     robot.drawArm(joint_angles, link_extensions);
     hold on;
     plot3(wire(1, :), wire(2, :), wire(3, :), '.');
-    
     num_collisions = 0;
-    
+    view([90 0])
     % Animate the arm
     for idx = 1:size(joint_angles_traj,2)
         pause(0.1);
         joint_angles = joint_angles_traj(:, idx);
         link_extensions = link_extensions_traj(:, idx);
         
-        %{
+        
         if checkCollision(wire, robot, joint_angles, link_extensions)
             num_collisions = num_collisions + 1;
         end
-        %}
+        
         robot.updateArm(joint_angles, link_extensions);
     end
     
